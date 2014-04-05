@@ -1,0 +1,16 @@
+{
+    "name": "rhayun/php-ade",
+    "description": "A PHP 5.3 library for scraping AdultDvdEmpire.",
+    "keywords": ["adultdvdempire"],
+    "license": "MIT",
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "require": {
+        "php": ">=5.3.2",
+        "kriswallsmith/buzz": "0.7",
+        "symfony/console": "2.1.*",
+        "symfony/dom-crawler": "2.1.*",
+        "symfony/css-selector": "2.1.*"
+    }
+}
