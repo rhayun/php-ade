@@ -24,13 +24,14 @@ class Movie
     {
         $this->title = null;
         $this->url   = $url;
+        $this->getCrawler();
     }
 
     public function getTitle()
     {
         if (null === $this->title) {
             try {
-                $this->title = trim($this->getCrawler()->filter('h1')->text());
+                $this->title = trim($this->crawler->filter('h1')->text());
             } catch (\Exception $e) {
                 return null;
             }
@@ -42,7 +43,7 @@ class Movie
     public function getRuntime()
     {
        try {
-            $runtime = $this->getCrawler()->filterXpath("//small[contains(string(.), 'Length')]/following-sibling::text()[1]")->text();
+            $runtime = $this->crawler->filterXpath("//small[contains(string(.), 'Length')]/following-sibling::text()[1]")->text();
             return $runtime ? $runtime : NULL;
         } catch (\Exception $e) {
             return null;
@@ -52,7 +53,7 @@ class Movie
     public function getReleaseDate()
     {
         try {
-            $date = $this->getCrawler()->filterXpath("//small[contains(string(.), 'Released')]/following-sibling::text()[1]")->text();
+            $date = $this->crawler->filterXpath("//small[contains(string(.), 'Released')]/following-sibling::text()[1]")->text();
             return $date ? $date : NULL;
         } catch (\Exception $e) {
             return null;
@@ -72,7 +73,7 @@ class Movie
     public function getYear()
     {
         try {
-            $year = $this->getCrawler()->filterXpath("//small[contains(string(.), 'Production Year')]/following-sibling::text()[1]")->text();
+            $year = $this->crawler->filterXpath("//small[contains(string(.), 'Production Year')]/following-sibling::text()[1]")->text();
             return $year ? $year : NULL;
         } catch (\Exception $e) {
             return null;
@@ -83,7 +84,7 @@ class Movie
     {
         try {
 						$summary = '';
-						$this->getCrawler()->filterXpath("//h4[contains(concat(' ',normalize-space(@class),' '),' synopsis ')]")->each(function ($node, $i) use (&$summary) {
+						$this->crawler->filterXpath("//h4[contains(concat(' ',normalize-space(@class),' '),' synopsis ')]")->each(function ($node, $i) use (&$summary) {
 							$summary .= trim(strip_tags($node->nextSibling->nodeValue));
 						});
             //$summary = htmlentities($this->getCrawler()->filterXpath("//h4[@class='spacing-bottom text-white synopsis']//p")->text());
@@ -98,7 +99,7 @@ class Movie
         $genres = array();
 
         try {
-            $this->getCrawler()->filterXpath("//a[@label='Category']")->each(function ($node, $i) use (&$genres) {
+            $this->crawler->filterXpath("//a[@label='Category']")->each(function ($node, $i) use (&$genres) {
                 $genres[] = trim(strip_tags($node->parentNode->nodeValue));
             });
         } catch (\Exception $e) {
@@ -112,7 +113,7 @@ class Movie
         $cast = array();
 
         try {
-            $this->getCrawler()->filterXpath("//a[@class='PerformerName']")->each(function ($node, $i) use (&$cast) {
+            $this->crawler->filterXpath("//a[@class='PerformerName']")->each(function ($node, $i) use (&$cast) {
                 $cast[] = trim(strip_tags($node->nodeValue));
             });
         } catch (\Exception $e) {
@@ -126,7 +127,7 @@ class Movie
         $screens = array();
 
         try {
-            $this->getCrawler()->filterXpath("//a[@rel='screenshots']/@href")->each(function ($node, $i) use (&$screens) {
+            $this->crawler->filterXpath("//a[@rel='screenshots']/@href")->each(function ($node, $i) use (&$screens) {
                 $screens[] = trim($node->nodeValue);
             });
         } catch (\Exception $e) {
