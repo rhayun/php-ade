@@ -124,14 +124,11 @@ class Movie
 
     public function getCover()
     {
-        $cover = array();
         try {
-            $this->crawler->filterXpath("//div[@id='Boxcover']/a[@id='front-cover']/@href")->each(function ($node, $i) use (&$cover) {
-                $cover[] = trim($node->nodeValue);
-            });
+            $cover = $this->crawler->filterXpath("//a[@id='front-cover']")->attr('data-href');
         } catch (\Exception $e) {}
 
-        return !empty($cover) ? $cover[0] : array();
+        return $cover ? $cover : NULL;
     }
 
     public function getScreens()
