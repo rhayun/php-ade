@@ -122,6 +122,18 @@ class Movie
         return $cast;
     }
 
+    public function getCover()
+    {
+        $cover = array();
+        try {
+            $this->crawler->filterXpath("//div[@id='Boxcover']/a[@id='front-cover']/@href")->each(function ($node, $i) use (&$cover) {
+                $cover[] = trim($node->nodeValue);
+            });
+        } catch (\Exception $e) {}
+
+        return !empty($cover) ? $cover[0] : array();
+    }
+
     public function getScreens()
     {
         $screens = array();
