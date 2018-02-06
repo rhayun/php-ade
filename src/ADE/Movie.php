@@ -54,7 +54,7 @@ class Movie
     {
         try {
             $date = $this->crawler->filterXpath("//small[contains(string(.), 'Released')]/following-sibling::text()[1]")->text();
-            return $date ? $date : NULL;
+            return $date ? trim($date) : NULL;
         } catch (\Exception $e) {
             return null;
         }
@@ -74,7 +74,7 @@ class Movie
     {
         try {
             $year = $this->crawler->filterXpath("//small[contains(string(.), 'Production Year')]/following-sibling::text()[1]")->text();
-            return $year ? $year : NULL;
+            return $year ? trim($year) : NULL;
         } catch (\Exception $e) {
             return null;
         }
