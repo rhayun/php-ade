@@ -113,7 +113,7 @@ class Movie
         $cast = array();
 
         try {
-            $this->crawler->filterXpath("//a[@class='PerformerName']")->each(function ($node, $i) use (&$cast) {
+            $this->crawler->filterXpath("//a[@label='Performers - detail']")->each(function ($node, $i) use (&$cast) {
                 $cast[] = trim(strip_tags($node->nodeValue));
             });
         } catch (\Exception $e) {
