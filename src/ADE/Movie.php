@@ -136,7 +136,7 @@ class Movie
         $screens = array();
 
         try {
-            $this->crawler->filterXpath("//a[@rel='screenshots']/@href")->each(function ($node, $i) use (&$screens) {
+            $this->crawler->filterXpath("//a[@rel='scenescreenshots']/@href")->each(function ($node, $i) use (&$screens) {
                 $screens[] = trim($node->nodeValue);
             });
         } catch (\Exception $e) {
