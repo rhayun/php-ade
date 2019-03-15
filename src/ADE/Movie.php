@@ -100,7 +100,7 @@ class Movie
 
         try {
             $this->crawler->filterXpath("//a[@label='Category']")->each(function ($node, $i) use (&$genres) {
-                $genres[] = trim(strip_tags($node->parentNode->nodeValue));
+                $genres[] = trim(strip_tags($node->nodeValue));
             });
         } catch (\Exception $e) {
         }
