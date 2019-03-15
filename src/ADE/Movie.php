@@ -105,7 +105,7 @@ class Movie
         } catch (\Exception $e) {
         }
 
-        return $genres;
+        return array_unique($genres);
     }
 
     public function getCast()
