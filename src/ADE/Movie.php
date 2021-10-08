@@ -160,7 +160,7 @@ class Movie
             $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();
             $client = new Curl($psr17Factory);
             $browser = new Browser($client, $psr17Factory);
-
+            
             $this->crawler = new Crawler($browser->get($url, array('User-Agent:MyAgent/1.0\r\n'))->getBody()->__toString());
         }
 
