@@ -161,7 +161,8 @@ class Movie
             $client = new Curl($psr17Factory);
             $browser = new Browser($client, $psr17Factory);
 
-            $this->crawler = new Crawler($browser->get($url, ['User-Agent' => 'MyAgent/1.0\r\n'])->getBody()->__toString());
+            $content = $browser->get($url, ['User-Agent' => 'MyAgent/1.0\r\n'])->getBody()->__toString();
+            $this->crawler = new Crawler($content);
         }
 
         return $this->crawler; 
