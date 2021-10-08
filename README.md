@@ -1,7 +1,7 @@
 PHP ADE
 ========
 
-A PHP 5.3 library for scraping AdultDvdEmpire, strongly inspired by [php-imdb](https://github.com/redpanda/php-imdb).
+A PHP library for scraping AdultDvdEmpire, strongly inspired by [php-imdb](https://github.com/redpanda/php-imdb).
 
 ## Installation
 
@@ -20,7 +20,7 @@ A PHP 5.3 library for scraping AdultDvdEmpire, strongly inspired by [php-imdb](h
 
 ```php
 <?php
-$i = new ADE\Movie("http://www.adultdvdempire.com/1692533/hands-on-training-hardcore-massage-porn-movies.html");
+$i = new ADE\Movie("https://www.adultdvdempire.com/1692533/hands-on-training-hardcore-massage-porn-movies.html");
 $i->getTitle();
 ```
 

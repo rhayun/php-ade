@@ -3,6 +3,7 @@
 namespace ADE;
 
 use Buzz\Browser;
+use Buzz\Client\Curl;
 use Symfony\Component\DomCrawler\Crawler;
 
 class Movie
@@ -156,9 +157,12 @@ class Movie
                 $url = $this->url;
             }
 
-            $client = new Browser();
+            $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();
+            $client = new Curl($psr17Factory);
+            $browser = new Browser($client, $psr17Factory);
 
-            $this->crawler = new Crawler($client->get($url, array('User-Agent:MyAgent/1.0\r\n'))->getContent());
+            $content = $browser->get($url, ['User-Agent' => 'MyAgent/1.0\r\n'])->getBody()->__toString();
+            $this->crawler = new Crawler($content);
         }
 
         return $this->crawler; 
