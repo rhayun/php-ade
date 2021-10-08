@@ -86,7 +86,7 @@ class Movie
         try {
 						$summary = '';
 						$this->crawler->filterXpath("//h4[contains(concat(' ',normalize-space(@class),' '),' synopsis ')]")->each(function ($node, $i) use (&$summary) {
-							$summary .= trim(strip_tags($node->nextSibling->nodeValue));
+							$summary .= trim(strip_tags($node->nextSibling->text()));
 						});
             //$summary = htmlentities($this->getCrawler()->filterXpath("//h4[@class='spacing-bottom text-white synopsis']//p")->text());
             return trim(html_entity_decode($summary));
@@ -100,8 +100,8 @@ class Movie
         $genres = array();
 
         try {
-            $this->crawler->filterXpath("//a[@Label='Category']")->each(function ($node, $i) use (&$genres) {
-                $genres[] = trim(strip_tags($node->nodeValue));
+            $this->crawler->filterXpath("//a[@label='Category']")->each(function ($node, $i) use (&$genres) {
+                $genres[] = trim(strip_tags($node->text()));
             });
         } catch (\Exception $e) {
         }
@@ -115,7 +115,7 @@ class Movie
 
         try {
             $this->crawler->filterXpath("//a[@label='Performers - detail']")->each(function ($node, $i) use (&$cast) {
-                $cast[] = trim(strip_tags($node->nodeValue));
+                $cast[] = trim(strip_tags($node->text()));
             });
         } catch (\Exception $e) {
         }
@@ -138,7 +138,7 @@ class Movie
 
         try {
             $this->crawler->filterXpath("//a[@rel='scenescreenshots']/@href")->each(function ($node, $i) use (&$screens) {
-                $screens[] = trim($node->nodeValue);
+                $screens[] = trim($node->text());
             });
         } catch (\Exception $e) {
 
