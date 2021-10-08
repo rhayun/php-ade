@@ -85,8 +85,8 @@ class Movie
     {
         try {
 						$summary = '';
-						$this->crawler->filterXpath("//h4[contains(concat(' ',normalize-space(@class),' '),' synopsis ')]")->each(function ($node, $i) use (&$summary) {
-							$summary .= trim(strip_tags($node->nextSibling->text()));
+						$this->crawler->filterXpath("//h4[contains(concat(' ',normalize-space(@class),' '),' synopsis ')]/p")->each(function ($node, $i) use (&$summary) {
+							$summary .= trim(strip_tags($node->text()));
 						});
             //$summary = htmlentities($this->getCrawler()->filterXpath("//h4[@class='spacing-bottom text-white synopsis']//p")->text());
             return trim(html_entity_decode($summary));
