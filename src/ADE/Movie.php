@@ -157,7 +157,7 @@ class Movie
                 $url = $this->url;
             }
 
-            $psr17Factory = \Nyholm\Psr7\Factory\Psr17Factory();
+            $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();
             $client = new Curl($psr17Factory);
             $browser = new Browser($client, $psr17Factory);
 
