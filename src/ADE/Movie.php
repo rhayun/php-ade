@@ -4,6 +4,7 @@ namespace ADE;
 
 use Buzz\Browser;
 use Buzz\Client\Curl;
+use Buzz\Middleware\CookieMiddleware;
 use Symfony\Component\DomCrawler\Crawler;
 
 class Movie
@@ -161,6 +162,11 @@ class Movie
             $client = new Curl($psr17Factory);
             $browser = new Browser($client, $psr17Factory);
 
+	    // Create CookieListener
+            $middleware = new CookieMiddleware();
+            $browser->addMiddleware($middleware);
+
+	    $browser->get('https://www.adultempire.com/Account/AgeConfirmation?ageConfirmationClicked=true&_=' . time(), ['User-Agent' => 'MyAgent/1.0\r\n']);
             $content = $browser->get($url, ['User-Agent' => 'MyAgent/1.0\r\n'])->getBody()->__toString();
             $this->crawler = new Crawler($content);
         }
